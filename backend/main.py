@@ -22,7 +22,7 @@ ACCESS_TOKEN_EXPIRE_SECONDS = 300
 # Allowed origins for CORS (configurable via environment variable)
 CORS_ORIGINS = os.getenv(
     "CORS_ORIGINS",
-    "http://localhost:5173,http://localhost:3000"
+    "*"
 ).split(",")
 
 # Password hashing context
