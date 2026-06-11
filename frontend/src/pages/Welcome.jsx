@@ -105,6 +105,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'flex-start',
     padding: 'var(--spacing-section) var(--spacing-xl)',
     position: 'relative',
     overflow: 'hidden',
