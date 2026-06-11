@@ -1,6 +1,57 @@
 import { useNavigate } from 'react-router-dom';
 import { logout, getToken, decodeToken } from '../services/auth';
 
+const certifications = [
+  {
+    exam: 'AI-901',
+    title: 'Azure AI Fundamentals',
+    level: 'Principiante',
+    description: 'Demuestra conceptos fundamentales de IA relacionados con el desarrollo de soluciones en Azure. Actualizado en abril de 2026 con nuevos objetivos de habilidades.',
+    url: 'https://learn.microsoft.com/credentials/certifications/azure-ai-fundamentals/',
+    accentColor: 'var(--color-accent-blue)',
+  },
+  {
+    exam: 'AZ-900',
+    title: 'Azure Fundamentals',
+    level: 'Principiante',
+    description: 'Valida el conocimiento básico sobre servicios en la nube y cómo se proporcionan con Azure. Ideal para quienes comienzan su carrera en la nube.',
+    url: 'https://learn.microsoft.com/credentials/certifications/azure-fundamentals/',
+    accentColor: 'var(--color-accent-green)',
+  },
+  {
+    exam: 'AZ-104',
+    title: 'Azure Administrator Associate',
+    level: 'Intermedio',
+    description: 'Certifica habilidades para implementar, administrar y monitorear la infraestructura de Microsoft Azure, incluyendo redes, almacenamiento y seguridad.',
+    url: 'https://learn.microsoft.com/credentials/certifications/azure-administrator/',
+    accentColor: 'var(--color-accent-orange)',
+  },
+  {
+    exam: 'AZ-204',
+    title: 'Azure Developer Associate',
+    level: 'Intermedio',
+    description: 'Diseña, construye, prueba y mantiene aplicaciones y servicios en la nube en Microsoft Azure. Validación de habilidades para desarrolladores de soluciones.',
+    url: 'https://learn.microsoft.com/credentials/certifications/azure-developer/',
+    accentColor: 'var(--color-accent-orange)',
+  },
+  {
+    exam: 'AI-102',
+    title: 'Azure AI Engineer Associate',
+    level: 'Intermedio',
+    description: 'Diseña e implementa soluciones de IA usando Azure Cognitive Services, Machine Learning y Knowledge Mining para resolver problemas empresariales complejos.',
+    url: 'https://learn.microsoft.com/credentials/certifications/azure-ai-engineer/',
+    accentColor: 'var(--color-accent-blue)',
+  },
+  {
+    exam: 'AB-730',
+    title: 'AI Business Professional',
+    level: 'Principiante',
+    description: 'Certifica el uso de herramientas de productividad con IA generativa, incluyendo Microsoft 365 Copilot, Researcher y Analyst para mejorar el trabajo diario.',
+    url: 'https://learn.microsoft.com/credentials/certifications/ai-business-professional/',
+    accentColor: 'var(--color-accent-green)',
+  },
+];
+
 const styles = {
   page: {
     minHeight: '100vh',
@@ -52,8 +103,8 @@ const styles = {
   main: {
     flex: 1,
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 'var(--spacing-section) var(--spacing-xl)',
     position: 'relative',
     overflow: 'hidden',
@@ -134,6 +185,79 @@ const styles = {
     wordBreak: 'break-all',
     lineHeight: 1.6,
   },
+  certificationsSection: {
+    width: '100%',
+    maxWidth: '1100px',
+    marginTop: 'var(--spacing-section)',
+    position: 'relative',
+    zIndex: 1,
+  },
+  certificationsHeading: {
+    fontSize: '24px',
+    fontWeight: 500,
+    letterSpacing: '-0.4px',
+    color: 'var(--color-ink)',
+    marginBottom: 'var(--spacing-md)',
+    textAlign: 'center',
+  },
+  certificationsSubtitle: {
+    fontSize: '16px',
+    color: 'var(--color-body)',
+    marginBottom: 'var(--spacing-xxxl)',
+    textAlign: 'center',
+  },
+  certificationsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: 'var(--spacing-xl)',
+  },
+  certCard: {
+    backgroundColor: 'var(--color-surface-card)',
+    border: '1px solid var(--color-hairline-strong)',
+    borderRadius: 'var(--rounded-lg)',
+    padding: 'var(--spacing-xxl)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 'var(--spacing-md)',
+  },
+  certCardHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  certCardExam: {
+    fontSize: '12px',
+    color: 'var(--color-mute)',
+    fontFamily: '"Geist Mono", "Fira Code", monospace',
+    letterSpacing: '0.05em',
+  },
+  certCardLevel: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: '11px',
+    color: 'var(--color-charcoal)',
+    backgroundColor: 'var(--color-surface-elevated)',
+    borderRadius: 'var(--rounded-full)',
+    padding: '2px 10px',
+    border: '1px solid var(--color-hairline)',
+  },
+  certCardTitle: {
+    fontSize: '16px',
+    fontWeight: 500,
+    letterSpacing: '-0.3px',
+    color: 'var(--color-ink)',
+  },
+  certCardDescription: {
+    fontSize: '14px',
+    color: 'var(--color-body)',
+    lineHeight: 1.6,
+    flex: 1,
+  },
+  certCardLink: {
+    fontSize: '13px',
+    fontWeight: 500,
+    marginTop: 'var(--spacing-sm)',
+  },
 };
 
 export default function Welcome() {
@@ -185,6 +309,33 @@ export default function Welcome() {
             <p style={styles.cardValue}>{expiresAt}</p>
           </div>
         </div>
+
+        <section style={styles.certificationsSection}>
+          <h2 style={styles.certificationsHeading}>Certificaciones Microsoft 2026</h2>
+          <p style={styles.certificationsSubtitle}>
+            Explora las certificaciones más relevantes de Microsoft para impulsar tu carrera en la nube e IA.
+          </p>
+          <div style={styles.certificationsGrid}>
+            {certifications.map((cert) => (
+              <div key={cert.exam} style={styles.certCard}>
+                <div style={styles.certCardHeader}>
+                  <span style={styles.certCardExam}>{cert.exam}</span>
+                  <span style={styles.certCardLevel}>{cert.level}</span>
+                </div>
+                <p style={styles.certCardTitle}>{cert.title}</p>
+                <p style={styles.certCardDescription}>{cert.description}</p>
+                <a
+                  href={cert.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ ...styles.certCardLink, color: cert.accentColor }}
+                >
+                  Ver certificación →
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );
